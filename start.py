@@ -1,12 +1,6 @@
 from drenpy.ec2 import Instance
 import logging
-import subprocess
 import tarfile
-
-def instance_stop(server_object):
-    logging.info('Stopping the Instance')
-    server_object.stop()
-
 
 if __name__ == '__main__':
     # FREQUENTLY CHANGED PARAMETERS
@@ -41,6 +35,7 @@ if __name__ == '__main__':
         security_group_id=['sg-0bec91fe0dd33d512']
     )
 
+    # EC2 INSTRUCTIONS
     if create_instance:
         server.create_instance()
     else:
@@ -48,9 +43,13 @@ if __name__ == '__main__':
 
     server.start_ssh(sleep_time=45, verbose=True)
     print('Login Parameters')
-    print(server.login_creds())
+    logging.info(server.login_creds())
+
+    # PASS EC2 THE MODEL
+    server.send_file(python_path_local, python_path_remote)
 
     if update_docker:
+        logging.info('UPDATING DOCKER')
         server.send_file('requirements.txt.tensorflow', '/home/ubuntu/requirements.txt')
         server.send_file('Dockerfile', '/home/ubuntu/Dockerfile')
         server.send_file(script_path_local, script_path_remote)
@@ -60,15 +59,10 @@ if __name__ == '__main__':
         else:
             server.command("sudo docker build -t tensordren --file ./Dockerfile .")
 
-    server.send_file(python_path_local, python_path_remote)
-    # MAKE A MODEL
-    print('Login Parameters')
-    print(server.login_creds())
+    logging.info('RUNNING: THE MODEL')
     server.command(f"docker run --gpus all -t -v $(pwd):/root  tensordren python /root/{model_name}")
-    # docker logs --tail=0 --follow
-    # docker-compose logs --tail=0 --follow
 
-    # Post Model Instructions
+    logging.info('RUNNING: POST MODEL INSTRUCTIONS')
     server.get_file('/home/ubuntu/multi_input_output_model.png', 'images/multi_input_output_model.png')
     server.command("tar -czvf model.tar.gz my_model")
     server.get_file('/home/ubuntu/model.tar.gz', './models/model.tar.gz')
