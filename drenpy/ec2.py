@@ -21,6 +21,7 @@ class Instance:
                  key_file=None,
                  security_group_id=None,
                  shell_script=None,
+                 shell_path=None,
                  keyfile_location=None,
                  username='ubuntu',
                  volume_size=30):
@@ -30,8 +31,8 @@ class Instance:
         self.instance_id = instance_id
         self.key_file = key_file
         self.security_group_id = security_group_id
-        self.shell_path = None
-        self.shell_script = None
+        self.shell_path = shell_path
+        self.shell_script = shell_script
         self.keyfile_location = keyfile_location
         self.username = username
         self.volume_size = volume_size

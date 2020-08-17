@@ -55,7 +55,7 @@ if __name__ == '__main__':
     model = Model(inputs=list_inputs, outputs=list_outputs)
 
     # Display the multiple input/output model
-    plot_model(model, '../images/multi_input_output_model.png', show_shapes=True)
+    plot_model(model, 'multi_input_output_model.png', show_shapes=True)
 
     # Compile the model
     model.compile(optimizer=optimizers.RMSprop(1e-3),
@@ -110,3 +110,5 @@ if __name__ == '__main__':
 
     outputs_test = {'inflam': inflam_test, 'nephr': nephr_test}
     model.evaluate(inputs_test, outputs_test)
+
+    model.save('my_model')
