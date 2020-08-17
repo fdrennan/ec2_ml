@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  productor_db:
+    image: postgres:12.3
+    container_name: "productor_postgres"
+    restart: always
+    ports:
+      - '5432:5432'
+    expose:
+      # Opens port 5432 on the container
+      - '5432'
+      # Where our data will be persisted
+    env_file: .env
+    volumes:
+      - productor_postgres_volume:/var/lib/postgresql/data
+      - ./postgres_backup:/postgres_backup
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+volumes:
+  productor_postgres_volume: {}

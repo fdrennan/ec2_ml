@@ -1,0 +1,8 @@
+venv
+idea
+.idea
+.env
+.Rprofile
+.venv
+*.pem
+fdren.pem

@@ -1,0 +1,9 @@
+scikit-learn
+boto3
+paramiko
+tensorflow
+pandas
+numpy
+wget
+matplotlib
+pydot

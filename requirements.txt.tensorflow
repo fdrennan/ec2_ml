@@ -1,0 +1,12 @@
+tensorflow-gpu==2.3.0
+pandas
+scikit-learn
+pytz
+python-dateutil
+joblib
+numpy
+matplotlib
+pyparsing
+cycler
+kiwisolver
+Pillow
