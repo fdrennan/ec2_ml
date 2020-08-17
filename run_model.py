@@ -5,15 +5,15 @@ import tarfile
 if __name__ == '__main__':
     # FREQUENTLY CHANGED PARAMETERS
     # START THE SERVER
-    create_instance = True
+    create_instance = False
 
     model_name = 'multi_input.py'
-    update_docker = True
-    invalidate_cache_docker = True
+    update_docker = False
+    invalidate_cache_docker = False
     shell_script_name = 'instance_deep_learning.sh'
 
     # LESS FREQUENTLY CHANGED PARAMETERS
-    instance_id = 'i-074e161d01f09c4ea'
+    instance_id = 'i-01a49b86182d40b0d'
     key_file = 'fdren'
     keyfile_location = f'/Users/fdrennan/{key_file}.pem'
 
