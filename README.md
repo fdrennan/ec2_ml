@@ -1,17 +1,5 @@
+Spins up (or creates) an EC2 server set up to run models in containers. 
 
-```
-LDFLAGS=`echo $(pg_config --ldflags)` pip install psycopg2
-```
+Allows for easy access with EC2 to run commands remote and transfer files
 
-```
-pip freeze > requirements.txt
-```
-
-
-```
-docker build -t productor_app_basis --file ./DockerfileAppBasis .
-docker tag productor_app_basis:latest fdrennan/productor_app:latest
-docker push fdrennan/productor_app:latest
-```# DL-Tools
-# DL-Tools
-# ec2_ml
+Automates model building to remote GPU and retrieves the model
