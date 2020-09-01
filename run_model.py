@@ -1,15 +1,20 @@
 from drenpy.ec2 import Instance
 import logging
 import tarfile
+import timeit
 
 if __name__ == '__main__':
+    start = timeit.timeit()
+
     # FREQUENTLY CHANGED PARAMETERS
     # START THE SERVER
-    create_instance = False
-
     model_name = 'multi_input.py'
-    update_docker = False
+    create_instance = True
+    update_docker = True
     invalidate_cache_docker = False
+    if create_instance:
+        update_docker = True
+
     shell_script_name = 'instance_deep_learning.sh'
 
     # LESS FREQUENTLY CHANGED PARAMETERS
@@ -54,6 +59,7 @@ if __name__ == '__main__':
         server.send_file('Dockerfile', '/home/ubuntu/Dockerfile')
         server.send_file(script_path_local, script_path_remote)
         logging.info('Building Dockerfile')
+
         if invalidate_cache_docker:
             server.command("sudo docker build -t tensordren --file ./Dockerfile . --no-cache")
         else:
@@ -71,4 +77,7 @@ if __name__ == '__main__':
     my_tar.close()
 
     # Stop The Server
-    server.stop()
+    server.terminate()
+
+    end = timeit.timeit()
+    print(end - start)

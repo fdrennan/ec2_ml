@@ -106,7 +106,6 @@ class Instance:
         self.public_dns_name = self.instance_data.public_dns_name
         self.instance_id = self.instance_data.instance_id
 
-
     def send_file(self, local_path, remote_path):
         ftp_client = self.ssh.open_sftp()
         ftp_client.put(local_path, remote_path)
